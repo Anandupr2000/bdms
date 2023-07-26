@@ -118,8 +118,21 @@ $userid = $_SESSION['user']['uid'];
                 die("Error in preparing the statement...");
             }
 
+            $gudHealth = $_POST['gudHealth'];
+            $bloodDonated = $_POST['bloodDonated'];
+            $sickness = $_POST['sickness'];
+            $pregnancy = $_POST['pregnancy'];
+            $diabetic = $_POST['diabetic'];
+            $std = $_POST['std'];
 
-            if ($stmt->execute() && $stmt1->execute()) {
+            $sql = "UPDATE medical_history SET gudHealth=$gudHealth, bloodDonated=$bloodDonated, sickness=$sickness, pregnancy=$pregnancy, diabetic=$diabetic, std=$std WHERE uid=$uid";
+
+            // $stmt2 = $conn->prepare($sql);
+            // if (!$stmt2) {
+            //     die("Error in preparing the statement...");
+            // }
+
+            if ($stmt->execute() && $stmt1->execute() && $conn->query($sql)) {
                 echo "<script>alert('Profile updated')</script>";
             }
             $stmt->close();
@@ -136,7 +149,7 @@ $userid = $_SESSION['user']['uid'];
         $stmt->close();
         $donor = mysqli_fetch_assoc($result);
 
-        $user = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * from users where uid=$userid"));
+        $user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * from users where uid=$userid"));
         // $stmt->execute();
         // $user = $stmt->get_result();
         // $stmt->close()
@@ -200,6 +213,69 @@ $userid = $_SESSION['user']['uid'];
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" name="userpwd" value="<?php echo $_SESSION['user']['upass'] ?>" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
+            <?php
+            $sql = "SELECT gudHealth, bloodDonated,sickness,pregnancy,diabetic,std
+                    FROM medical_history
+                    WHERE uid = $uid;";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $medicalHistory = $stmt->get_result();
+            $stmt->close();
+
+            if ($medicalHistory->num_rows) {
+                $medicalHistory = mysqli_fetch_assoc($medicalHistory);
+            ?>
+                <div class="form-group">
+                    <label for="gudHealth">Are you feeling well and in good health today ?</label>
+                    <select id="gudHealth" class="form-select" name="gudHealth" aria-label="Default select example">
+                        <option value="Yes" <?php if ($medicalHistory['gudHealth'] == "Yes") echo "selected" ?>>Yes</option>
+                        <option value="No" <?php if ($medicalHistory['gudHealth'] != "Yes") echo "selected" ?>>No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="blooddonate">Have you already given blood in the last 16 weeks ?</label>
+                    <select id="blooddonate" class="form-select" name="bloodDonated" aria-label="Default select example">
+                        <option value="Yes" <?php if ($medicalHistory['bloodDonated'] == "Yes") echo "selected" ?>>Yes</option>
+                        <option value="No" <?php if ($medicalHistory['bloodDonated'] != "Yes") echo "selected" ?>>No</option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="sick">Have you got a chesty cough, sore throat or active cold sore ?</label>
+                    <select id="sick" class="form-select" name="sickness" aria-label="Default select example">
+                        <option value="Yes" <?php if ($medicalHistory['sickness'] == "Yes") echo "selected" ?>>Yes</option>
+                        <option value="No" <?php if ($medicalHistory['sickness'] != "Yes") echo "selected" ?>>No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="preg">Are you pregnant or breastfeeding ?</label>
+                    <select id="preg" class="form-select" name="pregnancy" aria-label="Default select example">
+                        <option value="Yes" <?php if ($medicalHistory['pregnancy'] == "Yes") echo "selected" ?>>Yes</option>
+                        <option value="No" <?php if ($medicalHistory['pregnancy'] != "Yes") echo "selected" ?>>No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="dia">Are you diabetic ?</label>
+                    <select id="dia" class="form-select" name="diabetic" aria-label="Default select example">
+                        <option value="Yes" <?php if ($medicalHistory['diabetic'] == "Yes") echo "selected" ?>>Yes</option>
+                        <option value="No" <?php if ($medicalHistory['diabetic'] != "Yes") echo "selected" ?>>No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="std">Have you suffered from a sexually transmitted disease (STD): e.g. syphilis, gonorrhoea, <br>
+                        genital herpes, genital ulcer, VD, or 'drop' ?</label>
+                    <select id="std" class="form-select" name="std" aria-label="Default select example">
+                        <option value="Yes" <?php if ($medicalHistory['std'] == "Yes") echo "selected" ?>>Yes</option>
+                        <option value="No" <?php if ($medicalHistory['std'] != "Yes") echo "selected" ?>>No</option>
+                    </select>
+                </div>
+
+            <?php
+            }
+            ?>
 
             <button id="profileUpdateBtn" name="update" type="submit" class="btn btn-primary">Update</button>
 

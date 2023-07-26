@@ -19,3 +19,16 @@ INSERT INTO TABLE donor_details VALUES
 select * from donor_details join blood where donor_details.donor_blood=blood.blood_id AND donor_details.donor_address='Ernakulam' limit 5
 
 INSERT INTO messages(senderuid,receiveruid) VALUES (2,3,"Hello"),(3,2,"Hai")
+
+INSERT INTO medical_history (uid, gudHealth, bloodDonated, sickness, pregnancy, diabetic, std)
+VALUES
+  (2, 'Yes', 'No', 'No', 'No', 'No', 'No'),
+  (3, 'Yes', 'No', 'No', 'No', 'No', 'No'),
+  (4, 'Yes', 'No', 'No', 'No', 'No', 'No'),
+  (5, 'Yes', 'No', 'No', 'No', 'No', 'No'),
+  (6, 'Yes', 'No', 'No', 'No', 'No', 'No'),
+  (7, 'Yes', 'No', 'No', 'No', 'No', 'No'),
+  (17, 'Yes', 'No', 'No', 'No', 'No', 'No'),
+  (18, 'Yes', 'No', 'No', 'No', 'No', 'No'),
+  (23, 'Yes', 'No', 'No', 'No', 'No', 'No'),
+  (24, 'Yes', 'No', 'No', 'No', 'No', 'No');

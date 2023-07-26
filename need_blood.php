@@ -158,6 +158,14 @@
                     $donorH = $stmt->get_result();
 
                     $stmt->close();
+
+                    $sql = "SELECT gudHealth, bloodDonated,sickness,pregnancy,diabetic,std
+                    FROM medical_history
+                    WHERE uid = $donorid;";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->execute();
+                    $medicalHistory = $stmt->get_result();
+                    $stmt->close();
                     ?>
 
                     <img class="card-img-top" src="image\blood_drop_logo.jpg" alt="Card image" style="width:100%;height:300px">
@@ -166,19 +174,56 @@
                         <i class="fas fa-clock"></i>
                       </button>
 
+
                       <div class="modal fade" id="exampleModal_<?php echo $row['uid']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                           <div class="modal-content">
                             <div class="modal-header" style="flex-direction: column;">
-                              <h3 class="modal-title">Donor History</h3>
+                              <h2 class="modal-title">Donor History</h2>
                               <h6>Donor name : <?php echo $donorName ?></h6>
                               <h6>Blood group : <?php echo $row['blood_group'] ?></h6>
                             </div>
                             <div class="modal-body">
                               <?php
+                              if ($medicalHistory->num_rows) {
+                                $medicalHistory = mysqli_fetch_assoc($medicalHistory);
+                              ?>
+                                <div class="row ml-1 pt-2 pb-3">
+                                  <span class="col">Healthy : </span>
+                                  <span class="col"><?php echo $medicalHistory['gudHealth'] ?></span>
+                                </div>
+                                <div class="row ml-2 pt-2 pb-3">
+                                  <span class="col">Blood donated in last 16 weeks : </span>
+                                  <span class="col"><?php echo $medicalHistory['bloodDonated'] ?></span>
+                                </div>
+                                <div class="row ml-2 pt-2 pb-3">
+                                  <span class="col">Chesty cough, sore throat or active cold sore : </span>
+                                  <span class="col"><?php echo $medicalHistory['sickness'] ?></span>
+                                </div>
+                                <div class="row ml-1 pt-2 pb-3">
+                                  <span class="col">Pregnant or Breastfeeding : </span>
+                                  <span class="col"><?php echo $medicalHistory['pregnancy'] ?></span>
+                                </div>
+                                <div class="row ml-2 pt-2 pb-3">
+                                  <span class="col">Diabetic : </span>
+                                  <span class="col"><?php echo $medicalHistory['diabetic'] ?></span>
+                                </div>
+                                <div class="row ml-2 pt-2 pb-3">
+                                  <span class="col">Sexually Transmitted Disease (STD) : </span>
+                                  <span class="col"><?php echo $medicalHistory['std'] ?></span>
+                                </div>
+                              <?php
+                              } else {
+                              ?>
+                                <div class="row ml-2 pt-2 pb-3">
+                                  <span class="col">No Medical History </span>
+                                </div>
+                              <?php
+                              }
                               if ($donorH->num_rows) {
                               ?>
                                 <table class="table" style="width:100%;">
+                                  <h3>Donor transaction</h3>
                                   <thead>
                                     <th class="p-2">Time</th>
                                     <th class="p-2">Reciever</th>
@@ -189,19 +234,19 @@
                                     // if ($donorHistory)
                                     while ($history = mysqli_fetch_assoc($donorH)) {
                                     ?>
-                                    <tr>
+                                      <tr>
                                         <td><?php echo $history['timestamp']; ?></td>
                                         <td><?php echo $history['uname']; ?></td>
                                       </tr>
                                     <?php
-                                    } 
+                                    }
                                     ?>
                                   </tbody>
                                 </table>
                               <?php
                               } else {
                               ?>
-                                <h3>No History</h3>
+                                <h3>No Donation History</h3>
                               <?php
                               }
                               ?>
@@ -222,7 +267,6 @@
                         <b>Age : </b> <?php echo $row['donor_age']; ?><br>
                         <b>Address : </b> <?php echo $row['donor_address']; ?><br>
                       </p>
-
                     </div>
                   </div>
                 </div>

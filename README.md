@@ -16,11 +16,11 @@ Blood Bank Donation System is a php based web project with both admin and user l
 
 6. Click on new at side navbar.
 
-7. Give a database name as (blood_bank_database) hit on create button.
+7. Give a database name as (blood_donation) hit on create button.
 
 8. After creating database name click on import.
 
-9. Browse the file in directory[BDMS/sql/blood_bank_database.sql].
+9. Browse the file in directory[BDMS/sql/new_blood_donation.sql].
 
 10. After importing successfully.
 
@@ -32,6 +32,7 @@ Blood Bank Donation System is a php based web project with both admin and user l
    Enter Below Credentials to login to the Admin Panel.
    Username =  admin
    Password =  123
+
    
 
 
