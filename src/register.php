@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -6,6 +7,7 @@ require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/SMTP.php';
 
+$error = "";
 function sendMail($msg, $email)
 {
     date_default_timezone_set('Asia/Kolkata');
@@ -58,6 +60,47 @@ function sendMail($msg, $email)
     // Send email
     $mail->send();
 }
+
+include 'conn.php';
+
+if (isset($_POST["register"])) {
+    if ($_POST["pass1"] == $_POST["pass2"]) {
+        $username = mysqli_real_escape_string($conn, $_POST["username"]);
+        $email = mysqli_real_escape_string($conn, $_POST["email"]);
+        $password = mysqli_real_escape_string($conn, $_POST["pass1"]);
+        $type = "user";
+        // $sql = "SELECT * from users where uname='$username' and upass='$password'";
+        $sql = "INSERT INTO users (uname, `type`,email,upass) VALUES (?,?, ?, ?)";
+        // prepare and bind
+        $stmt = $conn->prepare($sql);
+        if (!$stmt) {
+            die("Error in preparing the statement: " . $conn->error);
+        }
+        $stmt->bind_param("ssss", $username, $type, $email, $password);
+        try {
+            if ($stmt->execute()) {
+                $_SESSION['loggedin'] = true;
+                $_SESSION["username"] = $username;
+                $msg = "Username : $username, Password : $password";
+                sendMail($msg, $email);
+                $_SESSION['registrationStatus'] = true;
+                $_SESSION['mailSendStatus'] = true;
+                header("Location: home.php");
+            } else {
+                throw new Exception("email", 1);
+
+                // print_r($stmt);
+                // executed if email value is not unique
+            }
+        } catch (Throwable $th) {
+            // throw $th;
+            $error = $th->getMessage();
+        }
+        $stmt->close();
+    } else {
+        $error = "pwd";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -88,45 +131,16 @@ function sendMail($msg, $email)
         </div>
         <br>
         <?php
-
-
-        include 'conn.php';
-
-        if (isset($_POST["register"])) {
-            if ($_POST["pass1"] == $_POST["pass2"]) {
-                $username = mysqli_real_escape_string($conn, $_POST["username"]);
-                $email = mysqli_real_escape_string($conn, $_POST["email"]);
-                $password = mysqli_real_escape_string($conn, $_POST["pass1"]);
-                $type = "user";
-                // $sql = "SELECT * from users where uname='$username' and upass='$password'";
-                $sql = "INSERT INTO users (uname, `type`,email,upass) VALUES (?,?, ?, ?)";
-                // prepare and bind
-                $stmt = $conn->prepare($sql);
-                if (!$stmt) {
-                    die("Error in preparing the statement: " . $conn->error);
-                }
-
-                $stmt->bind_param("ssss", $username, $type, $email, $password);
-
-                if ($stmt->execute()) {
-                    session_start();
-                    $_SESSION['loggedin'] = true;
-                    $_SESSION["username"] = $username;
-                    $msg = "Username : $username, Password : $password";
-                    sendMail($msg, $email);
-                    $_SESSION['registrationStatus'] = true;
-                    $_SESSION['mailSendStatus'] = true;
-                    header("Location: home.php");
-                } else {
-                    // print_r($stmt);
-                    // executed if email value is not unique
-                    echo '<div class="alert alert-danger col-md-6" style="font-weight:bold"><i class="fa-sharp fa-solid fa-circle-exclamation fa-beat fa-lg" style="color: #e81741;"></i>Please use different email address</div>';
-                }
-                $stmt->close();
-            } else {
-                echo '<div class="alert alert-danger col-md-6" style="font-weight:bold"><i class="fa-sharp fa-solid fa-circle-exclamation fa-beat fa-lg" style="color: #e81741;"></i> Passwords donot match</div>';
-            }
-        }
+        if ($error == "email")
+            echo '<div class="alert alert-danger col-md-6" style="font-weight:bold">
+    <i class="fa-sharp fa-solid fa-circle-exclamation fa-beat fa-lg" style="color: #e81741;"></i>
+    Please use different email address
+    </div>';
+        else if ($error == "pwd")
+            echo '<div class="alert alert-danger col-md-6" style="font-weight:bold">
+                <i class="fa-sharp fa-solid fa-circle-exclamation fa-beat fa-lg" style="color: #e81741;"></i> 
+                Passwords do not match
+                </div>';
         ?>
         <form class="" action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
             <div class="card rounded-start col-md-12" style="background-size: cover;background-image:url('admin/admin_image/glossy1.jpg');">

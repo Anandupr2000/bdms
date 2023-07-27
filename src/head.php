@@ -350,27 +350,33 @@
       <?php
       // phpinfo();
       // session_start();
-      $conn = mysqli_connect("mysql_bdms", "root", "root", "blood_donation",3306) or die("Connection error");
-      // include('conn.php');
+      // $conn = mysqli_connect("mysql_bdms", "root", "root", "blood_donation", 3306) or die("Connection error");
+      include('conn.php');
 
       // print_r($result->num_rows);
       if (isset($_SESSION['user']['uid']) && isset($_SESSION['loggedin'])) {
         $uid = $_SESSION['user']['uid'];
         $sql = "SELECT * FROM donor_details WHERE uid=$uid";
         $result = mysqli_query($conn, $sql) or die("Query unsucessfull");
+        // echo $result->num_rows;
+        if ($result->num_rows == '0') {
       ?>
-        <a href="donate_blood.php" <?php if ($active == 'donate') echo "class='act'"; ?>>Become A Donor</a>
+          <a href="donate_blood.php" <?php if ($active == 'donate') echo "class='act'"; ?>>Become A Donor</a>
       <?php
+        }
       }
       ?>
       <a href="need_blood.php" <?php if ($active == 'need') echo "class='act'"; ?>>Need Blood</a>
       <a href="about_us.php" <?php if ($active == 'about') echo "class='act'"; ?>>About Us</a>
       <?php
-      if (isset($_SESSION['loggedin'])) {
+      if (isset($_SESSION['loggedin']) && isset($_SESSION['user']['uid'])) {
         $username = $_SESSION['username'];
         // getting first letters of first and last name as avatar
         $token = strtok($_SESSION['username'], " ");
-        $newMessages = mysqli_query($conn, "SELECT COUNT(readed) as readCount FROM messages WHERE readed=0 AND receiveruid=$uid;");
+        //  "SELECT COUNT(readed) AS readCount FROM messages WHERE readed = 0 AND receiveruid = $uid";
+        $sql = "SELECT COUNT(readed) as readCount FROM messages WHERE readed=0 AND receiveruid=$uid";
+        // echo $sql; 
+        $newMessages = mysqli_query($conn, $sql);
         $newMessagesSize = mysqli_fetch_assoc($newMessages)['readCount'];
         // if (!$user['readed']) {
       ?>
@@ -523,7 +529,9 @@
 
 <script>
   let rUid;
-  document.querySelector("#activityTitleBar h1").innerText = 'Messages'
+
+  if (document.getElementById('avatar'))
+    document.querySelector("#activityTitleBar h1").innerText = 'Messages'
 
   const handleUserViewClick = (uid, uname) => {
     console.log(`clicked on user ${uid}`)

@@ -26,6 +26,22 @@ $userid = $_SESSION['user']['uid'];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
+        .header a {
+            text-decoration: none;
+        }
+
+        .header-right>a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .dropdown-menu {
+            background-color: #333;
+            border: 1px solid gray;
+            box-shadow: 10px 5px 20px #c7c7c7;
+            padding: 0px;
+        }
+
         .btn:focus {
             box-shadow: none;
         }
@@ -82,84 +98,79 @@ $userid = $_SESSION['user']['uid'];
 </head>
 
 <body>
-    <div class="header">
-        <?php
+    <?php
+    if (isset($_POST['update'])) {
 
-        if (isset($_POST['update'])) {
+        $uid = $_SESSION['user']['uid'];
+        $username = mysqli_real_escape_string($conn, $_POST["username"]);
+        $email = mysqli_real_escape_string($conn, $_POST["email"]);
+        $phnno = mysqli_real_escape_string($conn, $_POST["phnno"]);
+        $pwd = mysqli_real_escape_string($conn, $_POST["userpwd"]);
+        $age = mysqli_real_escape_string($conn, $_POST["age"]);
+        $gender = mysqli_real_escape_string($conn, $_POST["gender"]);
+        $fees = mysqli_real_escape_string($conn, $_POST["fees"]);
+        $bloodid = mysqli_real_escape_string($conn, $_POST["blood_group"]);
+        $address = mysqli_real_escape_string($conn, $_POST["address"]);
+        // updating users table
+        $sql = "UPDATE users SET uname='$username', email='$email', upass='$pwd' WHERE uid=$uid";
 
-            $uid = $_SESSION['user']['uid'];
-            $username = mysqli_real_escape_string($conn, $_POST["username"]);
-            $email = mysqli_real_escape_string($conn, $_POST["email"]);
-            $phnno = mysqli_real_escape_string($conn, $_POST["phnno"]);
-            $pwd = mysqli_real_escape_string($conn, $_POST["userpwd"]);
-            $age = mysqli_real_escape_string($conn, $_POST["age"]);
-            $gender = mysqli_real_escape_string($conn, $_POST["gender"]);
-            $fees = mysqli_real_escape_string($conn, $_POST["fees"]);
-            $bloodid = mysqli_real_escape_string($conn, $_POST["blood_group"]);
-            $address = mysqli_real_escape_string($conn, $_POST["address"]);
-            // updating users table
-            $sql = "UPDATE users SET uname='$username', email='$email', upass='$pwd' WHERE uid=$uid";
-
-            // echo $sql;
-            $stmt = $conn->prepare($sql);
-            // $stmt->bind_param("sssi", $username, $email, $pwd, $uid);
-            if (!$stmt) {
-                die("Error in preparing the statement.");
-            }
-
-            // $sql = "UPDATE donor_details SET donor_number=$phnno,donor_age=$age,donor_gender=$gender,donor_blood=$bloodid,donor_address=$address,fees=$fees)";
-            // $stmt1 = $conn->prepare($sql);
-            $sql = "UPDATE donor_details SET donor_number=?, donor_age=?, donor_gender=?, donor_blood=?, donor_address=?, fees=? WHERE uid=?";
-            $stmt1 = $conn->prepare($sql);
-            $stmt1->bind_param("iisissi", $phnno, $age, $gender, $bloodid, $address, $fees, $uid);
-            // print_r($stmt1);
-
-            if (!$stmt1) {
-                die("Error in preparing the statement...");
-            }
-
-            $gudHealth = $_POST['gudHealth'];
-            $bloodDonated = $_POST['bloodDonated'];
-            $sickness = $_POST['sickness'];
-            $pregnancy = $_POST['pregnancy'];
-            $diabetic = $_POST['diabetic'];
-            $std = $_POST['std'];
-
-            $sql = "UPDATE medical_history SET gudHealth=$gudHealth, bloodDonated=$bloodDonated, sickness=$sickness, pregnancy=$pregnancy, diabetic=$diabetic, std=$std WHERE uid=$uid";
-
-            // $stmt2 = $conn->prepare($sql);
-            // if (!$stmt2) {
-            //     die("Error in preparing the statement...");
-            // }
-
-            if ($stmt->execute() && $stmt1->execute() && $conn->query($sql)) {
-                echo "<script>alert('Profile updated')</script>";
-            }
-            $stmt->close();
-            $stmt1->close();
+        // echo $sql;
+        $stmt = $conn->prepare($sql);
+        // $stmt->bind_param("sssi", $username, $email, $pwd, $uid);
+        if (!$stmt) {
+            die("Error in preparing the statement.");
         }
 
+        // $sql = "UPDATE donor_details SET donor_number=$phnno,donor_age=$age,donor_gender=$gender,donor_blood=$bloodid,donor_address=$address,fees=$fees)";
+        // $stmt1 = $conn->prepare($sql);
+        $sql = "UPDATE donor_details SET donor_number=?, donor_age=?, donor_gender=?, donor_blood=?, donor_address=?, fees=? WHERE uid=?";
+        $stmt1 = $conn->prepare($sql);
+        $stmt1->bind_param("iisissi", $phnno, $age, $gender, $bloodid, $address, $fees, $uid);
+        // print_r($stmt1);
 
-        $stmt = $conn->prepare("SELECT * from donor_details join blood where uid=$userid and donor_blood=blood.blood_id");
-
-        if (!$stmt->execute()) {
-            die("Error executing the statement: " . $stmt->error);
+        if (!$stmt1) {
+            die("Error in preparing the statement...");
         }
-        $result = $stmt->get_result();
+
+        $gudHealth = $_POST['gudHealth'];
+        $bloodDonated = $_POST['bloodDonated'];
+        $sickness = $_POST['sickness'];
+        $pregnancy = $_POST['pregnancy'];
+        $diabetic = $_POST['diabetic'];
+        $std = $_POST['std'];
+
+        $sql = "UPDATE medical_history SET gudHealth=$gudHealth, bloodDonated=$bloodDonated, sickness=$sickness, pregnancy=$pregnancy, diabetic=$diabetic, std=$std WHERE uid=$uid";
+
+        // $stmt2 = $conn->prepare($sql);
+        // if (!$stmt2) {
+        //     die("Error in preparing the statement...");
+        // }
+
+        if ($stmt->execute() && $stmt1->execute() && $conn->query($sql)) {
+            echo "<script>alert('Profile updated')</script>";
+        }
         $stmt->close();
-        $donor = mysqli_fetch_assoc($result);
+        $stmt1->close();
+    }
 
-        $user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * from users where uid=$userid"));
-        // $stmt->execute();
-        // $user = $stmt->get_result();
-        // $stmt->close()
-        // code for updating user profile
-        // print_r($_POST);
 
-        ?>
-    </div>
+    $stmt = $conn->prepare("SELECT * from donor_details join blood ON donor_blood=blood.blood_id where uid=$userid");
+
+    if (!$stmt->execute()) {
+        die("Error executing the statement: " . $stmt->error);
+    }
+    $result = $stmt->get_result();
+    $stmt->close();
+    $donor = mysqli_fetch_assoc($result);
+    $isDonor = false;
+    if (isset($donor['donor_number']))
+        $isDonor = true;
+    $user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * from users where uid=$userid"));
+
+
+    ?>
     <button class="btn btn-secondary ml-5 mt-4" onclick="handleUpdateRequest()">Edit</button>
-    <div class="container p-5 row justify-content-evenly">
+    <div class="container p-5 row justify-content-evenly" style="min-height: 65vh;">
         <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" class="m-auto" style="width:35rem">
             <div class="form-group">
                 <label for="uname">User Name</label>
@@ -169,46 +180,52 @@ $userid = $_SESSION['user']['uid'];
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" name="email" value="<?php echo $user['email'] ?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
             </div>
-            <div class="form-group">
-                <label for="phnno">Phone number</label>
-                <input type="number" name="phnno" value="<?php echo $donor['donor_number'] ?>" class="form-control" id="phnno" placeholder="Phone number">
-            </div>
-            <div class="form-group">
-                <label for="ageInp">Age</label>
-                <input type="number" name="age" value="<?php echo $donor['donor_age'] ?>" class="form-control" id="ageInp" placeholder="Age">
-            </div>
-            <div class="form-group">
-                <label for="genderInp">Gender</label>
-                <input type="text" name="gender" value="<?php echo $donor['donor_gender'] ?>" class="form-control" id="genderInp" placeholder="Gender">
-            </div>
-            <div class="form-group form_selectbox">
-                <label for="bloodInp">Blood Group</label>
-                <select name="blood_group" class="form-control" id="bloodInp">
-                    <?php
-                    include 'conn.php';
-                    $sql = "select * from blood";
-                    $result = mysqli_query($conn, $sql) or die("query unsuccessful.");
-                    while ($row = mysqli_fetch_assoc($result)) {
-                    ?>
-                        <option value=<?php echo $row['blood_id'];
-                                        if ($row['blood_id'] == $donor['donor_blood']) echo " selected" ?>> <?php echo $row['blood_group'] ?> </option>
-                    <?php } ?>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="addressInp">Location</label>
-                <input type="text" name="address" value="<?php echo $donor['donor_address'] ?>" class="form-control" id="addressInp" placeholder="Gender">
-            </div>
-            <div class="form-group form_selectbox">
-                <label for="feesInp">Demanded Fees</label>
-                <select name="fees" class="form-control" id="feesInp">
-                    <option value="100" <?php if ($donor['fees'] == "100") echo "selected" ?>>100</option>
-                    <option value="200" <?php if ($donor['fees'] == "200") echo "selected" ?>>200</option>
-                    <option value="300" <?php if ($donor['fees'] == "300") echo "selected" ?>>300</option>
-                    <option value="400" <?php if ($donor['fees'] == "400") echo "selected" ?>>400</option>
-                    <option value="500" <?php if ($donor['fees'] == "500") echo "selected" ?>>500</option>
-                </select>
-            </div>
+            <?php
+            if ($isDonor) {
+            ?>
+                <div class="form-group">
+                    <label for="phnno">Phone number</label>
+                    <input type="number" name="phnno" value="<?php echo $donor['donor_number'] ?>" class="form-control" id="phnno" placeholder="Phone number">
+                </div>
+                <div class="form-group">
+                    <label for="ageInp">Age</label>
+                    <input type="number" name="age" value="<?php echo $donor['donor_age'] ?>" class="form-control" id="ageInp" placeholder="Age">
+                </div>
+                <div class="form-group">
+                    <label for="genderInp">Gender</label>
+                    <input type="text" name="gender" value="<?php echo $donor['donor_gender'] ?>" class="form-control" id="genderInp" placeholder="Gender">
+                </div>
+                <div class="form-group form_selectbox">
+                    <label for="bloodInp">Blood Group</label>
+                    <select name="blood_group" class="form-control" id="bloodInp">
+                        <?php
+                        include 'conn.php';
+                        $sql = "select * from blood";
+                        $result = mysqli_query($conn, $sql) or die("query unsuccessful.");
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                            <option value=<?php echo $row['blood_id'];
+                                            if ($row['blood_id'] == $donor['donor_blood']) echo "selected" ?>> <?php echo $row['blood_group'] ?> </option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="addressInp">Location</label>
+                    <input type="text" name="address" value="<?php echo $donor['donor_address'] ?>" class="form-control" id="addressInp" placeholder="Gender">
+                </div>
+                <div class="form-group form_selectbox">
+                    <label for="feesInp">Demanded Fees</label>
+                    <select name="fees" class="form-control" id="feesInp">
+                        <option value="100" <?php if ($donor['fees'] == "100") echo "selected" ?>>100</option>
+                        <option value="200" <?php if ($donor['fees'] == "200") echo "selected" ?>>200</option>
+                        <option value="300" <?php if ($donor['fees'] == "300") echo "selected" ?>>300</option>
+                        <option value="400" <?php if ($donor['fees'] == "400") echo "selected" ?>>400</option>
+                        <option value="500" <?php if ($donor['fees'] == "500") echo "selected" ?>>500</option>
+                    </select>
+                </div>
+            <?php
+            }
+            ?>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" name="userpwd" value="<?php echo $_SESSION['user']['upass'] ?>" class="form-control" id="exampleInputPassword1" placeholder="Password">
@@ -282,17 +299,19 @@ $userid = $_SESSION['user']['uid'];
         </form>
         <div class="rewardsDiv justify-content-start">
             <?php
-            $sql = "SELECT COUNT(responded) as donatedCount FROM request join messages ON messageid=mid AND responded=1 AND receiveruid=3;";
-            $donateCount =  mysqli_fetch_assoc(mysqli_query($conn, $sql))['donatedCount'];
-            $levelSize = 4;
-            $level = round($donateCount / $levelSize);
-            $levelMark = $level * $levelSize + $donateCount % $levelSize;
-            if ($levelMark == 0) $levelMark = 4;
-            $basePoints = 50;
-            // $points = $level * $basePoints;
-            $points = 50;
-            $rewardPoints = $levelMark * $basePoints;
-            require('rewards.php');
+            if ($isDonor) {
+                $sql = "SELECT COUNT(responded) as donatedCount FROM request join messages ON messageid=mid AND responded=1 AND receiveruid=3;";
+                $donateCount =  mysqli_fetch_assoc(mysqli_query($conn, $sql))['donatedCount'];
+                $levelSize = 4;
+                $level = round($donateCount / $levelSize);
+                $levelMark = $level * $levelSize + $donateCount % $levelSize;
+                if ($levelMark == 0) $levelMark = 4;
+                $basePoints = 50;
+                // $points = $level * $basePoints;
+                $points = 50;
+                $rewardPoints = $levelMark * $basePoints;
+                require('rewards.php');
+            }
             ?>
         </div>
     </div>

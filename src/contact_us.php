@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
 
 <head>
@@ -13,14 +16,15 @@
 
 <body>
   <?php $active = 'contact';
-  include 'head.php'; ?>
+  include 'head.php'; 
+  include 'conn.php';
+  ?>
   <?php
   if (isset($_POST["send"])) {
     $name = $_POST['fullname'];
     $number = $_POST['contactno'];
     $email = $_POST['email'];
     $message = $_POST['message'];
-    $conn = mysqli_connect("localhost", "root", "", "blood_donation") or die("Connection error");
     $sql = "insert into contact_query (query_name,query_mail,query_number,query_message) values('{$name}','{$number}','{$email}','{$message}')";
     $result = mysqli_query($conn, $sql) or die("query unsuccessful.");
     echo '

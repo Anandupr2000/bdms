@@ -1,4 +1,5 @@
 <?php
+include 'conn.php';
 
 $name = $_POST['fullname'];
 $number = $_POST['mobileno'];
@@ -8,7 +9,7 @@ $gender = $_POST['gender'];
 $fee = $_POST['fee'];
 $blood_group = $_POST['blood'];
 $address = $_POST['address'];
-$conn = mysqli_connect("localhost", "root", "", "blood_donation") or die("Connection error");
+// $conn = mysqli_connect("localhost", "root", "", "blood_donation") or die("Connection error");
 
 $sql = "SELECT MAX(uid) as maxUid FROM users";
 $user = mysqli_query($conn, $sql) or die("query unsuccessful.");
@@ -24,6 +25,6 @@ values({$uid},'{$number}','{$age}','{$gender}','{$blood_group}','{$address}','{$
 
 $result = mysqli_query($conn, $sql) or die("query unsuccessful....");
 
-header("Location: http://localhost/BDMS/admin/donor_list.php");
+header("Location: donor_list.php");
 
 mysqli_close($conn);

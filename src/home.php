@@ -2,7 +2,7 @@
 session_start();
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="width: 100%;">
 
 <head>
 
@@ -45,7 +45,7 @@ session_start();
   </style>
 </head>
 
-<body>
+<body style="width: 100%;">
   <div class="header">
     <?php
     // setting $active as home to show user at header, that he/she is currently viewing home 
@@ -77,10 +77,10 @@ session_start();
           <!-- The slideshow -->
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="image\_107317099_blooddonor976.jpg" alt="image\_107317099_blooddonor976.jpg" width="100%" height="500">
+              <img src="image\_107317099_blooddonor976.jpg" alt="image\_107317099_blooddonor976.jpg" width="100%">
             </div>
             <div class="carousel-item">
-              <img src="image\Blood-facts_10-illustration-graphics__canteen.png" alt="image\Blood-facts_10-illustration-graphics__canteen.png" width="100%" height="500">
+              <img src="image\Blood-facts_10-illustration-graphics__canteen.png" alt="image\Blood-facts_10-illustration-graphics__canteen.png" width="100%">
             </div>
 
           </div>
@@ -180,9 +180,9 @@ session_start();
                   ?>
                   <img class="card-img-top" src="image\blood_drop_logo.jpg" alt="Card image" style="width:100%;height:300px">
                   <div class="card-body">
-                    <button title="donor history" class="float-right my-auto btn border-0 outline-0">
+                    <!-- <button title="donor history" class="float-right my-auto btn border-0 outline-0">
                       <i class="fas fa-clock"></i>
-                    </button>
+                    </button> -->
                     <h3 class="card-title"><?php echo $row['uname']; ?></h3>
                     <p class="card-text">
                       <b>Blood Group : </b> <b><?php echo $row['blood_group']; ?></b><br>
