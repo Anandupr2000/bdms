@@ -1,7 +1,7 @@
 <?php
 session_start();
 ?>
-<html>
+<html  style="width: 100%;">
 
 <head>
   <meta charset="utf-8">
@@ -14,7 +14,7 @@ session_start();
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body  style="width: 100%;">
   <?php $active = 'contact';
   include 'head.php'; 
   include 'conn.php';

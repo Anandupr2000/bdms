@@ -16,70 +16,75 @@
 
         .containerDiv {
             width: 100%;
-            height: 80vh;
+            max-width: 1000px;
+            max-height: 600px;
             background-color: #f0fff3;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .coupon-card>img {}
+        .coupon-card>img {
+            max-width: 30%;
+            padding: 4%;
+        }
 
         .coupon-card {
             /* background: linear-gradient(135deg, #7158fe, #9d4de6); */
             background: linear-gradient(135deg, #fe9558, #e64d4d);
-
             color: #fff;
             text-align: center;
-            padding: 40px 80px;
-            border-radius: 15px;
+            padding: 1% 4%;
+            border-radius: 2%;
             position: relative;
             box-shadow: 0 10px 10px 0 rgb(0, 0, 0.15);
+            max-width: 60%;
+            left: 0;
+            margin: 10%;
         }
 
         .containerDiv .logo {
-            width: 120px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            width: 60%;
         }
 
         .coupon-card h3 {
-            font-size: 28px;
+            font-size: 60%;
             font-weight: 400;
-            line-height: 40px;
         }
 
         .coupon-card p {
-            font-size: 15px;
+            font-size: 60%;
         }
 
         .coupon-row {
             display: flex;
             align-items: center;
-            margin: 25px auto;
+            margin: 5% auto;
             width: fit-content;
         }
 
         #cpnCode {
             border: 1px dashed #fff;
-            padding: 10px 20px;
+            padding: 2% 3%;
             border-right: 0;
+            font-size: 56%;
         }
 
         #cpnBtn {
             border: 1px solid #fff;
-            padding: 10px 20px;
+            padding: 0% 1%;
             background: #fff;
             color: #7158fe;
             cursor: pointer;
             transition: 0.5s ease-in;
+            font-size: 38%;
         }
 
         .circle1,
         .circle2 {
             background-color: #f0fff3;
-            width: 50px;
-            height: 50px;
+            width: 12%;
+            height: 12%;
             border-radius: 50%;
             position: absolute;
             top: 50%;
@@ -87,21 +92,20 @@
         }
 
         .circle1 {
-            left: -25px
+            left: -8%
         }
 
         .circle2 {
-            right: -25px
+            right: -8%
         }
     </style>
 </head>
 
 <body>
-    <div class="containerDiv">
+    <div class="containerDiv container">
         <div class="coupon-card">
             <!-- <img class="logo" src="./image/uber.webp" alt="Logo"> -->
-            <img class="logo" 
-            alt="Logo">
+            <img class="logo" alt="Logo">
             <!-- src="./image/zomato.png"  -->
             <h3>20% off on all rides within the city <br>using HDFC credit cards</h3>
             <div class="coupon-row">

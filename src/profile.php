@@ -12,7 +12,7 @@ include 'conn.php';
 $userid = $_SESSION['user']['uid'];
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  style="width: 100%;">
 
 <head>
 
@@ -76,7 +76,8 @@ $userid = $_SESSION['user']['uid'];
         }
 
         .form-group select {
-            width: fit-content;
+            margin-left: 2rem;
+            width: 100px;
         }
 
         .btn[type="submit"] {
@@ -97,7 +98,7 @@ $userid = $_SESSION['user']['uid'];
     </style>
 </head>
 
-<body>
+<body  style="width: 100%;">
     <?php
     if (isset($_POST['update'])) {
 
@@ -244,7 +245,7 @@ $userid = $_SESSION['user']['uid'];
             ?>
                 <div class="form-group">
                     <label for="gudHealth">Are you feeling well and in good health today ?</label>
-                    <select id="gudHealth" class="form-select" name="gudHealth" aria-label="Default select example">
+                    <select id="gudHealth" class="form-control" name="gudHealth">
                         <option value="Yes" <?php if ($medicalHistory['gudHealth'] == "Yes") echo "selected" ?>>Yes</option>
                         <option value="No" <?php if ($medicalHistory['gudHealth'] != "Yes") echo "selected" ?>>No</option>
                     </select>
@@ -252,7 +253,7 @@ $userid = $_SESSION['user']['uid'];
 
                 <div class="form-group">
                     <label for="blooddonate">Have you already given blood in the last 16 weeks ?</label>
-                    <select id="blooddonate" class="form-select" name="bloodDonated" aria-label="Default select example">
+                    <select id="blooddonate" class="form-control" name="bloodDonated" aria-label="Default select example">
                         <option value="Yes" <?php if ($medicalHistory['bloodDonated'] == "Yes") echo "selected" ?>>Yes</option>
                         <option value="No" <?php if ($medicalHistory['bloodDonated'] != "Yes") echo "selected" ?>>No</option>
 
@@ -261,7 +262,7 @@ $userid = $_SESSION['user']['uid'];
 
                 <div class="form-group">
                     <label for="sick">Have you got a chesty cough, sore throat or active cold sore ?</label>
-                    <select id="sick" class="form-select" name="sickness" aria-label="Default select example">
+                    <select id="sick" class="form-control" name="sickness" aria-label="Default select example">
                         <option value="Yes" <?php if ($medicalHistory['sickness'] == "Yes") echo "selected" ?>>Yes</option>
                         <option value="No" <?php if ($medicalHistory['sickness'] != "Yes") echo "selected" ?>>No</option>
                     </select>
@@ -269,14 +270,14 @@ $userid = $_SESSION['user']['uid'];
 
                 <div class="form-group">
                     <label for="preg">Are you pregnant or breastfeeding ?</label>
-                    <select id="preg" class="form-select" name="pregnancy" aria-label="Default select example">
+                    <select id="preg" class="form-control" name="pregnancy" aria-label="Default select example">
                         <option value="Yes" <?php if ($medicalHistory['pregnancy'] == "Yes") echo "selected" ?>>Yes</option>
                         <option value="No" <?php if ($medicalHistory['pregnancy'] != "Yes") echo "selected" ?>>No</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="dia">Are you diabetic ?</label>
-                    <select id="dia" class="form-select" name="diabetic" aria-label="Default select example">
+                    <select id="dia" class="form-control" name="diabetic" aria-label="Default select example">
                         <option value="Yes" <?php if ($medicalHistory['diabetic'] == "Yes") echo "selected" ?>>Yes</option>
                         <option value="No" <?php if ($medicalHistory['diabetic'] != "Yes") echo "selected" ?>>No</option>
                     </select>
@@ -284,7 +285,7 @@ $userid = $_SESSION['user']['uid'];
                 <div class="form-group">
                     <label for="std">Have you suffered from a sexually transmitted disease (STD): e.g. syphilis, gonorrhoea, <br>
                         genital herpes, genital ulcer, VD, or 'drop' ?</label>
-                    <select id="std" class="form-select" name="std" aria-label="Default select example">
+                    <select id="std" class="form-control" name="std" aria-label="Default select example">
                         <option value="Yes" <?php if ($medicalHistory['std'] == "Yes") echo "selected" ?>>Yes</option>
                         <option value="No" <?php if ($medicalHistory['std'] != "Yes") echo "selected" ?>>No</option>
                     </select>

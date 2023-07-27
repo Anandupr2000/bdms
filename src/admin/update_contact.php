@@ -1,7 +1,7 @@
 <?php
 session_start();
 ?>
-<html>
+<html  style="width: 100%;">
 
 <head>
 
@@ -33,7 +33,7 @@ session_start();
   </style>
 </head>
 
-<body style="color:black">
+<body style="color:black;width: 100%;">
 
   <?php
   include 'conn.php';

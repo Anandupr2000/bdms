@@ -2,7 +2,7 @@
 session_start();
 include 'conn.php';
 ?>
-<html>
+<html  style="width: 100%;">
 
 <head>
 
@@ -48,7 +48,7 @@ include 'conn.php';
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 ?>
 
-  <body style="color:black">
+  <body style="color:black;width: 100%;">
     <div id="header">
       <?php include 'header.php';
       ?>

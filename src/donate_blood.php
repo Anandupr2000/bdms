@@ -1,7 +1,7 @@
 <?php
 session_start();
 ?>
-<html>
+<html  style="width: 100%;">
 
 <head>
   <meta charset="utf-8">
@@ -23,7 +23,7 @@ session_start();
   </style>
 </head>
 
-<body>
+<body  style="width: 100%;">
   <?php
 
   // setting $active as donate to show user at header, that he/she is currently viewing donate page 

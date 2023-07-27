@@ -176,13 +176,15 @@
                     <div class="donut_singleWrapper col" style="position: relative;">
                         <div class="donut_single"></div>
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog" style="width: 1000px;position:absolute;left:14%" role="document">
+                            <!-- <div class="modal-dialog" role="document" style="width: 90%;position:absolute;left:14%"> -->
+                            <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-body" style="position:absolute;width: 1000px;padding:25px 50px;margin:0 auto">
-                                    <?php
-                                    require('coupons.html')
-                                    ?>
-                                    </div>
+                                    <!-- <div class="modal-body" style="position:absolute;width: 1000px;padding:25px 50px;margin:0 auto"> -->
+                                    <!-- <div class="modal-body"> -->
+                                        <?php
+                                        require('coupons.html')
+                                        ?>
+                                    <!-- </div> -->
                                 </div>
                             </div>
                         </div>
