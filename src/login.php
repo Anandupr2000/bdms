@@ -19,7 +19,7 @@ if (isset($_POST["login"])) {
 
   if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
-      session_start();
+      // session_start();
       // print_r($row);
       $_SESSION['loggedin'] = true;
       $_SESSION["username"] = $username;
