@@ -1,3 +1,36 @@
+<?php
+session_start();
+include 'conn.php';
+if (isset($_POST["login"])) {
+
+  $username = mysqli_real_escape_string($conn, $_POST["username"]);
+  $password = mysqli_real_escape_string($conn, $_POST["password"]);
+
+  // $sql = "SELECT * from users where uname='$username' and upass='$password'";
+  $stmt = $conn->prepare("SELECT * from users  where uname=? and upass=?");
+  $stmt->bind_param("ss", $username, $password); // Assuming uname and upass are both strings ('s').
+
+  if (!$stmt->execute()) {
+    die("Error executing the statement: " . $stmt->error);
+  }
+  $result = $stmt->get_result();
+  $stmt->close();
+
+
+  if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+      session_start();
+      // print_r($row);
+      $_SESSION['loggedin'] = true;
+      $_SESSION["username"] = $username;
+      $_SESSION["user"] = $row;
+      header("Location: home.php");
+    }
+  } else {
+    echo '<div class="alert alert-danger col-md-6" style="font-weight:bold"><i class="fa-sharp fa-solid fa-circle-exclamation fa-beat fa-lg" style="color: #e81741;"></i> Incorrect credentials!</div>';
+  }
+}
+?>
 <html>
 
 <head>
@@ -12,42 +45,19 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body background="admin_image\blood-cells.jpg">
+<body background="admin\admin_image\blood-cells.jpg">
   <div class="container mt-5">
     <div class="row justify-content-left">
       <div class="col-lg-6">
         <h1 class="mt-4 mb-3" style="color:#D2F015 ;">
           <span style="color:red;">Blood Bank & Management</span>
-          <br>Admin Portal
+          <br>User Login Portal
         </h1>
       </div>
     </div>
     <br>
-    <?php
-    include 'conn.php';
-
-    if (isset($_POST["login"])) {
-
-      $username = mysqli_real_escape_string($conn, $_POST["username"]);
-      $password = mysqli_real_escape_string($conn, $_POST["password"]);
-
-      $sql = "SELECT * from users where uname='$username' and upass='$password'";
-      $result = mysqli_query($conn, $sql) or die("query failed.");
-
-      if (mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
-          session_start();
-          $_SESSION['loggedin'] = true;
-          $_SESSION["username"] = $username;
-          header("Location: dashboard.php");
-        }
-      } else {
-        echo '<div class="alert alert-danger col-md-6" style="font-weight:bold"><i class="fa-sharp fa-solid fa-circle-exclamation fa-beat fa-lg" style="color: #e81741;"></i> Incorrect credentials!</div>';
-      }
-    }
-    ?>
     <form class="" action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
-      <div class="card rounded-start col-md-8" style="background-image:url('admin_image/glossy1.jpg');">
+      <div class="card rounded-start col-md-8" style="background-image:url('admin/admin_image/glossy1.jpg');">
         <div class="card-body">
           <br>
           <br>
@@ -69,8 +79,11 @@
           </div>
           <br>
           <div class="row justify-content-lg-center justify-content-mb-center">
-            <div class="col-lg-4 mb-4 " style="text-align:center"><br>
-              <div><input type="submit" name="login" class="btn btn-primary" value="LOGIN" style="cursor:pointer"></div>
+            <div class="row mb-4 gx-2 align-items-md-baseline" style="text-align:center"><br>
+              <input type="submit" name="login" class="col btn btn-primary" value="Login" style="cursor:pointer">
+              <span class="col">or</span>
+              <a href="register.php" class="col text-black-50 text-decoration-none" style="font-size:18px;font-weight:800;cursor:pointer">Register</a>
+              <!-- <input type="submit" name="login"  value="Register" > -->
             </div>
           </div>
         </div>

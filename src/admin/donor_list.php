@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
 
 <head>
@@ -42,7 +45,6 @@
 </head>
 <?php
 include 'conn.php';
-include 'session.php';
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 ?>
 

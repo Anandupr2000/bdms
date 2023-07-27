@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  apache_bdms:
+    container_name: apache_bdms
+    build: ./docker/apache
+    links:
+      - php_bdms
+    ports:
+      - "8900:80"
+    volumes:
+      - ./src:/usr/local/apache2/htdocs
+  php_bdms:
+    container_name: php_bdms
+    build: ./docker/php
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./src:/usr/local/apache2/htdocs
+    working_dir: /usr/local/apache2/htdocs
+  mysql_bdms:
+      image: mysql:latest
+      environment:
+        MYSQL_ROOT_USERNAME: root
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: blood_donation
+      ports:
+      - "3306:3306"
+      command: --sql-mode=NO_ENGINE_SUBSTITUTION
+      volumes:
+        - mysql_data:/var/lib/mysql
+volumes:
+  mysql_data:

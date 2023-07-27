@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // setting $active as home to show user at header, that he/she is currently viewing home 
 $active = "home";
 // print_r($_POST);

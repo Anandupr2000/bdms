@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <html>
 
 <head>
@@ -351,8 +348,10 @@ session_start();
     <div class="header-right">
       <a href="why_donate_blood.php" <?php if ($active == 'why') echo "class='act'"; ?>>Why Donate Blood</a>
       <?php
-      $conn = mysqli_connect("localhost", "root", "", "blood_donation") or die("Connection error");
-
+      // phpinfo();
+      // session_start();
+      $conn = mysqli_connect("mysql_bdms", "root", "root", "blood_donation",3306) or die("Connection error");
+      // include('conn.php');
 
       // print_r($result->num_rows);
       if (isset($_SESSION['user']['uid']) && isset($_SESSION['loggedin'])) {
@@ -462,7 +461,7 @@ session_start();
                     <span class="username" onclick="handleUserViewClick(<?php echo $userid . ',' . '`' . $uname . '`' ?>)"><?php echo $user['uname'] ?></span>
                     <span class="time"><?php echo $user['timestamp'] ?></span>
                     <?php
-                    $sql = "SELECT responded FROM request WHERE messageuid=$mid;";
+                    $sql = "SELECT responded FROM request WHERE messageid=$mid;";
                     $responded = mysqli_query($conn, $sql);
                     if (!$responded && $uid == $recieveruid) {
                     ?>

@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,7 +59,9 @@
     ?>
 
   </div>
-  <?php include 'ticker.php'; ?>
+  <?php 
+  include 'ticker.php'; 
+  ?>
 
   <div id="page-container" style="margin-top:50px; position: relative;min-height: 84vh;   ">
     <div class="container">
