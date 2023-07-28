@@ -48,7 +48,7 @@ $userid = $_SESSION['user']['uid'];
 
         .btn:hover {
             box-shadow: solid black 3px 3px;
-            scale: 1.3;
+            /* scale: 1.3; */
             transition: 0.5s;
             content: "History";
         }
@@ -94,6 +94,9 @@ $userid = $_SESSION['user']['uid'];
             border-radius: 10px;
             width: max-content;
             height: max-content;
+        }
+        .form-group{
+            width: 100%;
         }
     </style>
 </head>
@@ -170,9 +173,9 @@ $userid = $_SESSION['user']['uid'];
 
 
     ?>
-    <button class="btn btn-secondary ml-5 mt-4" onclick="handleUpdateRequest()">Edit</button>
-    <div class="container p-5 row justify-content-evenly" style="min-height: 65vh;">
-        <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" class="m-auto" style="width:35rem">
+    <button class="btn btn-secondary m-3" onclick="handleUpdateRequest()">Edit</button>
+    <div class="container pl-5 row justify-content-evenly" style="min-height: 65vh;">
+        <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" class="m-auto">
             <div class="form-group">
                 <label for="uname">User Name</label>
                 <input type="text" name="username" value="<?php echo $user['uname'] ?>" class="form-control" id="uname" placeholder="Username">

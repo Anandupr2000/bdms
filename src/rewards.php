@@ -22,7 +22,7 @@
             text-align: center;
         }
 
-        .yourPoints h2 {
+        .yourPoints h4 {
             color: #000;
             font-size: 2.5em;
         }
@@ -40,9 +40,11 @@
 
         #pageHight {
             /* min-height: calc(100vh - 505px); */
-            height: 30rem;
-            min-width: 30rem;
+            height: 20rem;
+            width: 20rem;
             display: flex;
+            padding: 2rem;
+            margin: 2rem 0;
             flex-direction: column;
             justify-content: space-evenly;
         }
@@ -51,6 +53,9 @@
             background-color: #fff;
             border: 1px solid #eff2f6;
             background-color: transparent;
+            /* width: 80%;
+            height: 80%; */
+            /* scale: 0.3; */
             /* border-radius: 40px 40px 40px 0; */
             /* margin: 15px 0; */
 
@@ -78,6 +83,11 @@
             position: relative;
         }
 
+        .checkMark {
+            /* scale: 0.5; */
+            margin-top: 5rem
+        }
+
         .checkMark path {
             -webkit-animation: draw 0.5s linear forwards 1s;
             -ms-animation: draw 0.5s linear forwards 1s;
@@ -85,17 +95,21 @@
             fill: none;
             stroke: #529c29;
             stroke-miterlimit: 10;
-            stroke-width: 40px;
+            stroke-width: 30px;
             stroke-dasharray: 500;
             stroke-dashoffset: 500;
+            /* scale:0.5 */
         }
 
         .checkMark svg {
             overflow: visible;
+            /* scale: 0.5; */
         }
 
         .donut_single div[dir=ltr] {
             margin: 0 auto;
+            margin: 0;
+            padding: 0;
         }
 
         .donut_single * {
@@ -117,13 +131,16 @@
             flex-wrap: wrap;
             justify-content: center;
             min-height: 65px;
-            padding: 0 15px 15px;
+            padding: 1em;
             text-align: center;
+            font-size: 1em;
+            margin-top: -5rem;
         }
 
         .progressTracker .container-login100-form-btn {
             margin: 0 auto;
-            max-width: 220px;
+            max-width: 100px;
+            z-index: 1000;
         }
 
         @-webkit-@keyframes draw {
@@ -158,32 +175,38 @@
                 stroke-dashoffset: 0;
             }
         }
+
+        #statusLevel {
+            scale: 0.6;
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 </head>
 
 <body>
-    <div class="container border border-3 rounded-lg" id="pageHight">
-        <div class="yourPoints" data-yourpoints="<?php echo $points ?>">
-            <h2>You have</h2>
-            <h1 style="display:flex;justify-content:center;align-items: baseline;"><?php echo $points ?> <small>points</small></h1>
-        </div>
+    <div class="container col md:col-12 border border-3 rounded-lg" id="pageHight">
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <div class="row">
             <div class="col-md-12">
                 <div class="donut_singleContainer" data-reward="<?php echo $rewardPoints ?>" data-link="#">
                     <div class="donut_singleWrapper col" style="position: relative;">
-                        <div class="donut_single"></div>
+                        <div id="statusLevel">
+                            <div class="yourPoints" data-yourpoints="<?php echo $points ?>">
+                                <h4>You have</h4>
+                                <h4 style="display:flex;justify-content:center;align-items: baseline;"><?php echo $points ?> <small>points</small></h1>
+                            </div>
+                            <div class="donut_single" style="height:fit-content;"></div>
+                        </div>
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <!-- <div class="modal-dialog" role="document" style="width: 90%;position:absolute;left:14%"> -->
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <!-- <div class="modal-body" style="position:absolute;width: 1000px;padding:25px 50px;margin:0 auto"> -->
                                     <!-- <div class="modal-body"> -->
-                                        <?php
-                                        require('coupons.html')
-                                        ?>
+                                    <?php
+                                    require('coupons.html')
+                                    ?>
                                     <!-- </div> -->
                                 </div>
                             </div>
@@ -207,12 +230,16 @@
             if (con > 0) {
                 cont = prog.toFixed(2) + '%';
             } else if (prog >= 100) {
-                cont = '<div class="checkMark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 166 150.9"><path d="M0.3 96l62.4 54.1L165.6 0.3"/></svg></div>';
+                cont = `<div class="checkMark">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 166 150.9">
+                        <path d="M0.3 96l62.4 54.1L165.6 0.3"/>
+                    </svg>
+                </div>`;
                 cont1 = `<div class="progressTracker">
                     <div class="container-login100-form-btn">
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
-                            <a class="login100-form-btn" data-toggle="modal" data-target="#exampleModalCenter">Claim Reward</a>
+                            <a id="linkBtn" class="login100-form-btn" data-toggle="modal" data-target="#exampleModalCenter">Claim Reward</a>
                         </div>
                     </div>
                 </div>`
@@ -261,6 +288,10 @@
             }
             jQuery(this).find('.donut_singleWrapper').append('<div class="prog">' + cont + '</div>');
             jQuery(this).append(cont1);
+            console.log(document.getElementById('linkBtn'))
+            document.getElementById('linkBtn').addEventListener('click', () => {
+                console.log("link clicked")
+            })
         });
     });
 </script>

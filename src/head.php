@@ -13,8 +13,9 @@
       overflow: hidden;
       padding: 2rem 1rem;
       background-color: #333;
+      /* display: flex; */
     }
-
+    
     /* Style the header links */
     .header a {
       float: left;
@@ -51,6 +52,11 @@
       font-size: 25px;
       font-weight: bold;
       color: #FF0404;
+      text-align: left;
+      /* width: fit-content; */
+      /* line-height: 10px; */
+      /* height: min-content; */
+
     }
 
     /* Change the background color on mouse-over */
@@ -412,7 +418,7 @@
           <!-- <hr> -->
           <a class="dropdown-item" href="logout.php">Logout</a>
         </div>
-        <div class="w3-sidebar w3-bar-block w3-animate-right" style="width:500px;z-index:50;top:0;right:0;display:none" id="mySidebar">
+        <div class="w3-sidebar w3-bar-block w3-animate-right" style="min-width:350px;z-index:50;top:0;right:0;display:none" id="mySidebar">
           <div id="activityTitleBar">
             <button class="w3-bar-item w3-button" id="siderbarCloseBtn" onclick="sidebar_close()">&times;</button>
             <h1 id="activityTitle"></h1>
