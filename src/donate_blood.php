@@ -108,9 +108,9 @@ session_start();
             </div>
           </div>
           <hr>
-          <div class="col-12 p-0">
+          <div class="col-12 p-5">
             <h3 class="py-2" style="text-decoration: underline;">Questionnaire</h3>
-            <div id="disclaimer" class="border border-danger rounded p-4 m-4">
+            <div id="disclaimer" class="border border-danger rounded p-4">
               <span class="text-warning" style="text-decoration: underline;">Disclaimer</span>
               <span>
                 The questionnaire does not replace a formal screening process conducted by trained medical personnel.
@@ -118,80 +118,80 @@ session_start();
               </span>
             </div>
             <div class="form-check py-4 row">
-              <span>Are you feeling well and in good health today ? <span style="color:red">*</span></span>
-              <span class="px-5">
+              <span class="row">Are you feeling well and in good health today ? <span style="color:red">*</span></span>
+              <span class="row px-5">
                 <input class="form-check-input" name="gudHealth" type="radio" value="Yes" id="gudHealth" required>
                 <label class="form-check-label" for="gudHealth">YES</label>
-                <input class="form-check-input ml-4" name="gudHealth" type="radio" value="No" checked id="gudHealth">
+                <input class="form-check-input ml-5" name="gudHealth" type="radio" value="No" checked id="gudHealth">
                 <label class="form-check-label ml-5" for="gudHealth">No</label>
               </span>
             </div>
             <div class="form-check py-4 row">
-              <span>Have you already given blood in the last 16 weeks ? <span style="color:red">*</span></span>
-              <span class="px-5">
+              <span class="row">Have you already given blood in the last 16 weeks ? <span style="color:red">*</span></span>
+              <span class="row px-5">
                 <input class="form-check-input" name="bloodDonated" type="radio" value="Yes" checked id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">YES</label>
-                <input class="form-check-input ml-4" name="bloodDonated" type="radio" value="No" id="flexCheckDefault" required>
+                <input class="form-check-input ml-5" name="bloodDonated" type="radio" value="No" id="flexCheckDefault" required>
                 <label class="form-check-label ml-5" for="flexCheckDefault">No</label>
               </span>
             </div>
             <div class="form-check py-4 row">
-              <span>Have you ever been deferred or rejected from donating blood?<span style="color:red">*</span></span>
-              <span class="px-5">
+              <span class="row">Have you ever been deferred or rejected from donating blood?<span style="color:red">*</span></span>
+              <span class="row px-5">
                 <input class="form-check-input" name="rbloodDonated" type="radio" value="Yes" checked id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">YES</label>
-                <input class="form-check-input ml-4" name="rbloodDonated" type="radio" value="No" id="flexCheckDefault" required>
+                <input class="form-check-input ml-5" name="rbloodDonated" type="radio" value="No" id="flexCheckDefault" required>
                 <label class="form-check-label ml-5" for="flexCheckDefault">No</label>
               </span>
             </div>
             <div class="form-check py-4 row">
-              <span>Have you got a chesty cough, sore throat or active cold sore ? <span style="color:red">*</span></span>
-              <span class="px-5">
+              <span class="row">Have you got a chesty cough, sore throat or active cold sore ? <span style="color:red">*</span></span>
+              <span class="row px-5">
                 <input class="form-check-input" name="sickness" type="radio" value="Yes" checked id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">YES</label>
-                <input class="form-check-input ml-4" name="sickness" type="radio" value="No" id="flexCheckDefault" required>
+                <input class="form-check-input ml-5" name="sickness" type="radio" value="No" id="flexCheckDefault" required>
                 <label class="form-check-label ml-5" for="flexCheckDefault">No</label>
               </span>
             </div>
             <div class="form-check py-4 row">
-              <span>Have you had any recent surgeries or medical procedures in the last 3 months?<span style="color:red">*</span></span>
-              <span class="px-5">
+              <span class="row">Have you had any recent surgeries or medical procedures in the last 3 months?<span style="color:red">*</span></span>
+              <span class="row px-5">
                 <input class="form-check-input" name="surgery" type="radio" value="Yes" checked id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">YES</label>
-                <input class="form-check-input ml-4" name="surgery" type="radio" value="No" id="flexCheckDefault" required>
+                <input class="form-check-input ml-5" name="surgery" type="radio" value="No" id="flexCheckDefault" required>
                 <label class="form-check-label ml-5" for="flexCheckDefault">No</label>
               </span>
             </div>
             <div class="form-check py-4 row">
-              <span>Are you pregnant or breastfeeding ? <span style="color:red">*</span></span>
-              <span class="px-5">
+              <span class="row">Are you pregnant or breastfeeding ? <span style="color:red">*</span></span>
+              <span class="row px-5">
                 <input class="form-check-input" name="pregnancy" type="radio" value="Yes" checked id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">YES</label>
-                <input class="form-check-input ml-4" name="pregnancy" type="radio" value="No" id="flexCheckDefault" required>
+                <input class="form-check-input ml-5" name="pregnancy" type="radio" value="No" id="flexCheckDefault" required>
                 <label class="form-check-label ml-5" for="flexCheckDefault">No</label>
               </span>
             </div>
             <div class="form-check py-4 row">
-              <span>Are you diabetic ? <span style="color:red">*</span></span>
-              <span class="px-5">
+              <span class="row">Are you diabetic ? <span style="color:red">*</span></span>
+              <span class="row px-5">
                 <input class="form-check-input" name="diabetic" type="radio" value="Yes" checked id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">YES</label>
-                <input class="form-check-input ml-4" name="diabetic" type="radio" value="No" id="flexCheckDefault" required>
+                <input class="form-check-input ml-5" name="diabetic" type="radio" value="No" id="flexCheckDefault" required>
                 <label class="form-check-label ml-5" for="flexCheckDefault">No</label>
               </span>
             </div>
             <div class="form-check py-4 row">
-              <span>Have you suffered from a sexually transmitted disease (STD): e.g. syphilis, gonorrhoea, <br>
+              <span class="row">Have you suffered from a sexually transmitted disease (STD): e.g. syphilis, gonorrhoea, <br>
                 genital herpes, genital ulcer, VD, or 'drop' ? <span style="color:red">*</span></span>
-              <span class="px-5">
+              <span class="row px-5">
                 <input class="form-check-input" name="std" type="radio" value="Yes" checked id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">YES</label>
-                <input class="form-check-input ml-4" name="std" type="radio" value="No" id="flexCheckDefault" required>
+                <input class="form-check-input ml-5" name="std" type="radio" value="No" id="flexCheckDefault" required>
                 <label class="form-check-label ml-5" for="flexCheckDefault">No</label>
               </span>
             </div>
           </div>
-          <div class="row pt-3">
+          <div class="row p-3">
             <div class="col-lg-4 mb-4">
               <div><input type="submit" id="formSubmitBtn" name="submit" class="btn btn-primary" value="Submit" style="cursor:pointer"></div>
             </div>
