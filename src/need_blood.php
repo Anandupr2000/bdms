@@ -129,10 +129,13 @@ session_start();
 
             $bg = $_POST['blood'];
             $location = $_POST['location'];
+            // echo $location;
+            // echo $bg;
             if ($location == 'any')
               $sql = "select * from donor_details join blood join users where donor_details.uid=users.uid AND donor_details.donor_blood=blood.blood_id AND donor_blood='{$bg}' order by rand() limit 5";
-            else
-              $sql = "SELECT * FROM donor_details JOIN blood ON donor_details.donor_blood = blood.blood_id WHERE donor_blood='{$bg}' AND donor_address = '{$location}' ORDER BY RAND() LIMIT 5";
+              else
+              $sql = "select * from donor_details join blood join users where donor_details.uid=users.uid AND donor_details.donor_blood=blood.blood_id AND donor_blood='{$bg}' AND donor_address = '{$location}' order by rand() limit 5";
+              // $sql = "SELECT * FROM donor_details JOIN blood ON donor_details.donor_blood = blood.blood_id WHERE donor_blood='{$bg}' AND donor_address = '{$location}' ORDER BY RAND() LIMIT 5";
             $result = mysqli_query($conn, $sql) or die("query unsuccessful.");
             if (mysqli_num_rows($result) > 0) {
               while ($row = mysqli_fetch_assoc($result)) {
