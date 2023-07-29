@@ -21,7 +21,7 @@ services:
       image: mysql:latest
       environment:
         MYSQL_ROOT_USERNAME: root
-        MYSQL_ROOT_PASSWORD: root
+        MYSQL_ROOT_PASSWORD: root@Anandu#2000
         MYSQL_DATABASE: blood_donation
       ports:
       - "3306:3306"
