@@ -43,6 +43,15 @@ session_start();
       /* padding: 5px 20px; */
     }
   </style>
+  <script>
+    <?php
+    if (isset($_SESSION['successfullyRegisteredAsDonor'])) {
+      echo "alert('Registered as donor')";
+      // form donor registeration status false
+      unset($_SESSION['successfullyRegisteredAsDonor']);
+    }
+    ?>
+  </script>
 </head>
 
 <body style="width: 100%;">
@@ -59,8 +68,8 @@ session_start();
     ?>
 
   </div>
-  <?php 
-  include 'ticker.php'; 
+  <?php
+  include 'ticker.php';
   ?>
 
   <div id="page-container" style="margin-top:50px; position: relative;min-height: 84vh;   ">

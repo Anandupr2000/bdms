@@ -120,7 +120,7 @@ if (!isset($_SESSION['loggedin']))
               </span>
             </div>
             <div class="form-check py-4 row">
-              <span class="row">Are you feeling well and in good health today ? <span style="color:red">*</span></span>
+              <span class="row">Are you in good health today ? <span style="color:red">*</span></span>
               <span class="row px-5">
                 <input class="form-check-input" name="gudHealth" type="radio" value="Yes" id="gudHealth" required>
                 <label class="form-check-label" for="gudHealth">YES</label>
@@ -129,7 +129,7 @@ if (!isset($_SESSION['loggedin']))
               </span>
             </div>
             <div class="form-check py-4 row">
-              <span class="row">Have you already given blood in the last 16 weeks ? <span style="color:red">*</span></span>
+              <span class="row">Does you donate blood in the last 16 weeks ? <span style="color:red">*</span></span>
               <span class="row px-5">
                 <input class="form-check-input" name="bloodDonated" type="radio" value="Yes" checked id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">YES</label>
@@ -138,7 +138,7 @@ if (!isset($_SESSION['loggedin']))
               </span>
             </div>
             <div class="form-check py-4 row">
-              <span class="row">Have you ever been deferred or rejected from donating blood?<span style="color:red">*</span></span>
+              <span class="row">Have you ever been rejected from donating blood?<span style="color:red">*</span></span>
               <span class="row px-5">
                 <input class="form-check-input" name="rbloodDonated" type="radio" value="Yes" checked id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">YES</label>
@@ -147,7 +147,7 @@ if (!isset($_SESSION['loggedin']))
               </span>
             </div>
             <div class="form-check py-4 row">
-              <span class="row">Have you got a chesty cough, sore throat or active cold sore ? <span style="color:red">*</span></span>
+              <span class="row">Have you got a cough or active cold sore ? <span style="color:red">*</span></span>
               <span class="row px-5">
                 <input class="form-check-input" name="sickness" type="radio" value="Yes" checked id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">YES</label>
@@ -156,7 +156,7 @@ if (!isset($_SESSION['loggedin']))
               </span>
             </div>
             <div class="form-check py-4 row">
-              <span class="row">Have you had any recent surgeries or medical procedures in the last 3 months?<span style="color:red">*</span></span>
+              <span class="row">Have you undergone any medical procedures in the last 3 months?<span style="color:red">*</span></span>
               <span class="row px-5">
                 <input class="form-check-input" name="surgery" type="radio" value="Yes" checked id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">YES</label>
@@ -249,13 +249,13 @@ if (!isset($_SESSION['loggedin']))
       // console.log(document.getElementById('gudHealth').value)
       if (rbloodDonated.value == "Yes") {
         gudHealth.style.border = '2px solid red'
-        alert("Donor must have good health");
+        alert("Donor must not have donated blood recently");
         e.preventDefault()
         return
       }
       if (surgery.value == "Yes") {
         gudHealth.style.border = '2px solid red'
-        alert("Donor must have good health");
+        alert("You must not undergone any medical procedures recently");
         e.preventDefault()
         return
       }

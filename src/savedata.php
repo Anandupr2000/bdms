@@ -26,7 +26,7 @@ $sql = "INSERT INTO medical_history(uid,gudHealth,bloodDonated,sickness,pregnanc
 values('{$uid}','{$gudHealth}','{$bloodDonated}','{$sickness}','{$pregnancy}','{$diabetic}','{$std}')";
 mysqli_query($conn, $sql) or die("query unsuccessful.");
 
-
+$_SESSION['successfullyRegisteredAsDonor'] = true;
 header("Location:home.php");
 
 mysqli_close($conn);
